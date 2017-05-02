@@ -42,6 +42,7 @@ RUN apt-get install -y \
 	php7.0-tidy \
 	php7.0-xmlrpc \
 	php7.0-xsl
+RUN apt-get -y install php-xdebug
 RUN apt-get install apache2 libapache2-mod-php7.0 -y
 RUN apt-get install postfix -y
 RUN apt-get install git nodejs npm composer nano tree vim curl ftp -y
@@ -71,8 +72,7 @@ RUN echo "" >> /etc/apache2/apache2.conf \
     && echo "# Include the configurations from the host machine" >> /etc/apache2/apache2.conf \
     && echo "IncludeOptional from-host/*.conf" >> /etc/apache2/apache2.conf
 
-
 EXPOSE 80
-
+COPY php.ini /etc/php/7.0/apache2/php.ini
 
 CMD ["/usr/sbin/run-lamp.sh"]
