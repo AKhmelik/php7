@@ -47,6 +47,16 @@ RUN apt-get install apache2 libapache2-mod-php7.0 -y
 RUN apt-get install postfix -y
 RUN apt-get install git nodejs npm composer nano tree vim curl ftp -y
 RUN npm install -g bower grunt-cli gulp
+RUN apt-get install php-mbstring -y
+#COMPOSER
+RUN curl -sS https://getcomposer.org/installer | php
+RUN mv composer.phar /usr/local/bin/composer
+
+#PHPUNIT
+RUN composer global require "phpunit/phpunit"
+ENV PATH /root/.composer/vendor/bin:$PATH
+RUN ln -s /root/.composer/vendor/bin/phpunit /usr/bin/phpunit
+
 
 ENV LOG_STDOUT **Boolean**
 ENV LOG_STDERR **Boolean**
@@ -65,7 +75,7 @@ RUN chown -R www-data:www-data /var/www/html
 
 VOLUME /var/www/html
 VOLUME /var/log/httpd
-
+RUN chmod 777 /var/log
 RUN mkdir -p  /etc/apache2/from-host
 
 RUN echo "" >> /etc/apache2/apache2.conf \
