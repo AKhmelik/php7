@@ -37,6 +37,7 @@ RUN apt-get install -y \
 	php7.0-readline \
 	php7.0-recode \
 	php7.0-snmp \
+	php7.0-soap \
 	php7.0-sqlite3 \
 	php7.0-sybase \
 	php7.0-tidy \
